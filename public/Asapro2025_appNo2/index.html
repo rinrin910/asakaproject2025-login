@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>専修生田ルームナビ - ログイン</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Asapro2025_appNo2.css">
+    <!-- <script src="Asapro2025_appNo2.js"></script> -->
+    <script type="module" src="Asapro2025_appNo2.js"></script>
+
+</head>
+
+<body class="login-page">
+    <div id="login-screen">
+        <div class="login-container">
+            <img src="AsaproLogo-2.png" alt="ロゴ" class="login-logo">
+            <h2>専修生田ルームナビ</h2>
+            <p class="sub-title">ASAKA PROJEKT</p>
+            <!-- <input type="email" id="email" placeholder="メールアドレス">
+            <input type="password" id="password" placeholder="パスワード">
+            <button id="login-btn">ログイン</button> -->
+            <!--Googleボタン　ここから-->
+            <p id="googleMsg" class="muted"></p>
+            <button id="googleBtn" class="btn-google">Googleアカウントを選択</button>
+            <!--Googleボタン　ここまで-->
+            <br>
+            <button id="continueBtn" >ホームへ進む</button>
+            <br>
+            <button id="logoutBtnOnIndex" >ログアウト</button>
+
+        </div>
+    </div>
+
+</body>
+
+
+<!--GoogleボタンJavaScripts　ここから-->
+<!-- <script type="module">
+    // const firebaseConfig = {
+    //   apiKey: "AIzaSyDJhDQtSHKP1tPmGBYxcJaP0Q4Ic5B24o0",
+    //   authDomain: "loginfittest.firebaseapp.com",
+    //   projectId: "loginfittest",
+    //   storageBucket: "loginfittest.firebasestorage.app",
+    //   messagingSenderId: "349747039661",
+    //   appId: "1:349747039661:web:366ce894f181f3aec76524"
+    // };
+
+
+    // JS（Googleだけ残す）ここから
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    const googleBtn = document.querySelector('#googleBtn');
+    const googleMsg = document.querySelector('#googleMsg');
+
+    const showMsg = (el, text) => { if (el) el.textContent = text; };
+
+    googleBtn.addEventListener('click', async () => {
+      try {
+        await signInWithPopup(auth, provider);
+        showMsg(googleMsg, 'Googleでログインしました。');
+        const p = new URLSearchParams(location.search);
+        const next = p.get("next") || "home.html";
+        location.replace(next);
+      } catch (err) {
+        showMsg(googleMsg, `Googleログイン失敗: ${err.code || err.message}`);
+      }
+    });
+    // JS（Googleだけ残す）ここまで
+
+    // Auth state observer
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const name = user.displayName || '(未設定)';
+        const email = user.email || '(不明)';
+        userInfo.innerHTML = `ログイン中：<strong>${name}</strong> <span class="mono">${email}</span>`;
+        authBadge.textContent = 'ログイン中';
+        authBadge.classList.remove('muted');
+        authBadge.classList.add('success');
+        logoutBtn.classList.remove('hidden');
+        membersArea.classList.remove('hidden');
+        uidEl.textContent = user.uid;
+        uemailEl.textContent = email;
+        unameEl.textContent = name;
+      } else {
+        userInfo.textContent = '未ログイン';
+        authBadge.textContent = '未ログイン';
+        authBadge.classList.remove('success');
+        authBadge.classList.add('muted');
+        logoutBtn.classList.add('hidden');
+        membersArea.classList.add('hidden');
+        uidEl.textContent = '';
+        uemailEl.textContent = '';
+        unameEl.textContent = '';
+      }
+    });
+  </script> -->
+  <!--GoogleボタンJavaScripts　ここまで-->
+
+</html>

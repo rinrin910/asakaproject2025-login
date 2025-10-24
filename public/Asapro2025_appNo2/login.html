@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Firebase Login Demo (HTML/CSS/JS)</title>
+  <style>
+    :root { --bg:#ffffff; --panel:#ffffff; --accent:#5cc8ff; --ok:#32cd8a; --warn:#ffcb6b; --err:#ff6b6b; --text:#555555; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif; background:linear-gradient(180deg,#DEEEDE,#cbefcb); color:var(--text); }
+    header { padding:24px; display:flex; gap:16px; align-items:center; justify-content:space-between; border-bottom:1px solid #1f2a48; position:sticky; top:0; background:rgba(255, 255, 255, 1); backdrop-filter:saturate(1.2) blur(6px); }
+    header h1 { font-size:18px; margin:0; letter-spacing:.4px; }
+    .container { max-width:980px; margin:24px auto; padding:0 16px 80px; }
+    .grid { display:grid; grid-template-columns: 1fr; gap:16px; }
+    @media(min-width: 840px){ .grid { grid-template-columns: 1fr 1fr; } }
+    .card { background:var(--panel); border:1px solid #bebebe; border-radius:16px; padding:20px; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+    .card h2 { margin:0 0 12px; font-size:18px; }
+    label { display:block; font-size:12px; opacity:.8; margin-top:10px; }
+    input { width:100%; padding:12px 14px; border-radius:12px; border:1px solid #bebebe; background:#ffffff; color:var(--text); }
+    button { appearance:none; border:1px solid #e5e7eb; background:#AAC198; color:var(--text); padding:10px 14px; border-radius:12px; cursor:pointer; font-weight:600; }
+    button:hover { border-color:#385398; }
+    .btn-accent { background:linear-gradient(180deg,#AAC198,#AAC198); border-color:#e5e7eb; }
+    .btn-google { background:#AAC198; color:#555555; border-color:#e5e7eb; }
+    .row { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+    .muted { font-size:12px; opacity:.7; }
+    .hidden { display:none !important; }
+    .pill { display:inline-block; padding:4px 8px; border-radius:999px; font-size:12px; border:1px solid #2a3a66; }
+    .success { color: var(--ok); }
+    .warning { color: var(--warn); }
+    .error { color: var(--err); }
+    .members { border:1px dashed #2a3a66; background:#0c1326; padding:16px; border-radius:12px; }
+    code, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🔐 Firebase Login Demo</h1>
+    <div class="row">
+      <span id="authBadge" class="pill muted">未ログイン</span>
+      <button id="logoutBtn" class="hidden">ログアウト</button>
+    </div>
+  </header>
+
+  <button id="googleBtn" class="btn-google">Sign in with Google</button>
+  <p id="googleMsg" class="muted"></p>
+
+  <div class="container">
+    <div class="grid">
+      <!-- Email/Password Login -->
+      <!-- <section class="card" id="emailCard">
+        <h2>メールアドレスでログイン</h2>
+        <form id="loginForm">
+          <label>メールアドレス</label>
+          <input id="email" type="email" autocomplete="email" required />
+          <label>パスワード</label>
+          <input id="password" type="password" autocomplete="current-password" minlength="6" required />
+          <div class="row" style="margin-top:12px;">
+            <button type="submit" class="btn-accent">ログイン</button>
+            <button type="button" id="signupBtn">新規登録（サインアップ）</button>
+          </div>
+        </form>
+        <p id="emailMsg" class="muted"></p>
+      </section> -->
+
+      <!-- Google Login -->
+      <!-- <section class="card">
+        <h2>Googleでログイン</h2>
+        <p class="muted">Firebaseコンソールで <strong>Google</strong> プロバイダを有効化してください。</p>
+        <button id="googleBtn" class="btn-google">Sign in with Google</button>
+        <p id="googleMsg" class="muted"></p>
+      </section> -->
+
+      <!-- HTML（Googleだけ残す） -->
+      <button id="googleBtn" class="btn-google">Sign in with Google</button>
+      <p id="googleMsg" class="muted"></p>
+
+
+      
+    </div>
+  </div>
+
+  <!-- Firebase SDK（CDN / モジュラー）: あなたの環境の最新バージョンに置き換えてください -->
+  
+  <script type="module">
+    // ▶ すべて1つのモジュールにまとめました（モジュール間スコープ問題を回避）
+    // import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    // import {
+    //   getAuth,
+    //   onAuthStateChanged,
+    //   signInWithEmailAndPassword,
+    //   createUserWithEmailAndPassword,
+    //   signOut,
+    //   GoogleAuthProvider,
+    //   signInWithPopup
+    // } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+
+    // const app = initializeApp(firebaseConfig);
+    // const auth = getAuth(app);
+    // const provider = new GoogleAuthProvider();
+
+    // // DOM refs
+    // const emailEl = document.querySelector('#email');
+    // const passEl = document.querySelector('#password');
+    // const loginForm = document.querySelector('#loginForm');
+    // const signupBtn = document.querySelector('#signupBtn');
+    // const logoutBtn = document.querySelector('#logoutBtn');
+    // const googleBtn = document.querySelector('#googleBtn');
+
+    // const emailMsg = document.querySelector('#emailMsg');
+    // const googleMsg = document.querySelector('#googleMsg');
+    // const userInfo = document.querySelector('#userInfo');
+    // const authBadge = document.querySelector('#authBadge');
+    // const membersArea = document.querySelector('#membersArea');
+    // const uidEl = document.querySelector('#uid');
+    // const uemailEl = document.querySelector('#uemail');
+    // const unameEl = document.querySelector('#uname');
+
+    // const showMsg = (el, text, type='info') => {
+    //   el.textContent = text;
+    //   el.className = 'muted ' + (type==='success' ? 'success' : type==='error' ? 'error' : type==='warning' ? 'warning' : '');
+    // };
+
+    // // Login
+    // loginForm.addEventListener('submit', async (e) => {
+    //   e.preventDefault();
+    //   const email = emailEl.value.trim();
+    //   const password = passEl.value;
+    //   if(!email || !password) return;
+    //   try {
+    //     await signInWithEmailAndPassword(auth, email, password);
+    //     showMsg(emailMsg, 'ログインしました。', 'success');
+    //   } catch (err) {
+    //     console.error(err);
+    //     showMsg(emailMsg, `ログイン失敗: ${err.code || err.message}`, 'error');
+    //   }
+    // });
+
+
+    // あなたのfirebaseConfig（コンソールの表示と一致）
+    const firebaseConfig = {
+      apiKey: "AIzaSyDJhDQtSHKP1tPmGBYxcJaP0Q4Ic5B24o0",
+      authDomain: "loginfittest.firebaseapp.com",
+      projectId: "loginfittest",
+      storageBucket: "loginfittest.firebasestorage.app",
+      messagingSenderId: "349747039661",
+      appId: "1:349747039661:web:366ce894f181f3aec76524"
+    };
+
+
+    // JS（Googleだけ残す）ここから
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    const googleBtn = document.querySelector('#googleBtn');
+    const googleMsg = document.querySelector('#googleMsg');
+
+    const showMsg = (el, text) => { if (el) el.textContent = text; };
+
+    googleBtn.addEventListener('click', async () => {
+      try {
+        await signInWithPopup(auth, provider);
+        showMsg(googleMsg, 'Googleでログインしました。');
+        const p = new URLSearchParams(location.search);
+        const next = p.get("next") || "index.html";
+        location.replace(next);
+      } catch (err) {
+        showMsg(googleMsg, `Googleログイン失敗: ${err.code || err.message}`);
+      }
+    });
+    // JS（Googleだけ残す）ここまで
+
+
+    // Signup
+    // signupBtn.addEventListener('click', async () => {
+    //   const email = emailEl.value.trim();
+    //   const password = passEl.value;
+    //   if(!email || !password) { showMsg(emailMsg, 'メールとパスワードを入力してください。', 'warning'); return; }
+    //   try {
+    //     await createUserWithEmailAndPassword(auth, email, password);
+    //     showMsg(emailMsg, 'アカウントを作成しました。ログイン済みです。', 'success');
+    //   } catch (err) {
+    //     console.error(err);
+    //     showMsg(emailMsg, `登録失敗: ${err.code || err.message}`, 'error');
+    //   }
+    // });
+
+    // // Google Sign-in
+    // googleBtn.addEventListener('click', async () => {
+    //   try {
+    //     await signInWithPopup(auth, provider);
+    //     showMsg(googleMsg, 'Googleでログインしました。', 'success');
+
+    //     const p = new URLSearchParams(location.search);
+    //     const next = p.get("next") || "index.html"; // ←見せたいページのパス
+    //     location.replace(next);
+
+    //   } catch (err) {
+    //     console.error(err);
+    //     showMsg(googleMsg, `Googleログイン失敗: ${err.code || err.message}`, 'error');
+    //   }
+    // });
+
+    // // Logout
+    // logoutBtn.addEventListener('click', async () => {
+    //   try {
+    //     await signOut(auth);
+    //   } catch (err) {
+    //     console.error(err);
+    //     alert('ログアウトに失敗しました');
+    //   }
+    // });
+
+    // Auth state observer
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const name = user.displayName || '(未設定)';
+        const email = user.email || '(不明)';
+        userInfo.innerHTML = `ログイン中：<strong>${name}</strong> <span class="mono">${email}</span>`;
+        authBadge.textContent = 'ログイン中';
+        authBadge.classList.remove('muted');
+        authBadge.classList.add('success');
+        logoutBtn.classList.remove('hidden');
+        membersArea.classList.remove('hidden');
+        uidEl.textContent = user.uid;
+        uemailEl.textContent = email;
+        unameEl.textContent = name;
+      } else {
+        userInfo.textContent = '未ログイン';
+        authBadge.textContent = '未ログイン';
+        authBadge.classList.remove('success');
+        authBadge.classList.add('muted');
+        logoutBtn.classList.add('hidden');
+        membersArea.classList.add('hidden');
+        uidEl.textContent = '';
+        uemailEl.textContent = '';
+        unameEl.textContent = '';
+      }
+    });
+  </script>
+</body>
+</html>

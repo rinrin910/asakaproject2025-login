@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>専修生田ルームナビ - ホーム</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Asapro2025_appNo2.css">
+    <script src="Asapro2025_appNo2.js"></script>
+</head>
+
+<body>
+    <div id="homePage" class="page active">
+        <div class="header-scroll">
+            <header>
+                <div class="header-container">
+                    <img src="AsaproLogo-1.png" alt="あさぷろロゴ" class="logo">
+                </div>
+                <h1>水曜２限</h1>
+                <div class="header-button">
+                    <button class="filter-btn" id="openFilter">
+                        <img src="filter.png" alt="フィルター" class="logo_filter">
+                    </button>
+                    <button class="setting-btn" id="openSetting">
+                        <img src="setting.png" alt="設定" class="logo_setting">
+                    </button>
+                </div>
+            </header>
+            <section class="legend">
+                <span class="legend-red">赤：授業あり</span>
+                <span class="legend-blue">青：授業なし</span>
+            </section>
+        </div>
+
+        <div class="notice">
+            <p>必ずしも最新の空き教室情報を<br class="br-sp">反映しているものとは限りません。</p>
+            <p>教室名をクリックすると教室の詳細を確認できます。</p>
+            <p>専修大学生田キャンパスの地図は<br class="br-sp">
+                <a href="https://senshu-u.github.io/asakaproject2023/">こちら</a>からご覧ください。（仮）
+            </p>
+        </div>
+
+        <main class="building-list">
+            <button class="building-item" data-target="building1">1号館 <span class="arrow">▼</span></button>
+            <div class="building-detail" id="building1">
+                <p class="floor">1F</p>
+                <div class="rooms">
+                    <button class="room red" id="open114">114教室</button>
+                    <button class="room red" id="open117">117教室</button>
+                    <button class="room blue" id="open118">118教室</button>
+                    <button class="room blue" id="openLabo1">ラボ1</button>
+                    <button class="room blue" id="openLabo2">ラボ2</button>
+                    <button class="room blue" id="openLabo3">ラボ3</button>
+                </div>
+
+                <p class="floor">2F</p>
+                <div class="rooms">
+                    <button class="room red" id="open121">121教室</button>
+                    <button class="room red" id="open122">122教室</button>
+                    <button class="room blue" id="open123">123教室</button>
+                    <button class="room red" id="open124">124教室</button>
+                    <button class="room blue" id="open125">125教室</button>
+                </div>
+
+                <p class="floor">3F</p>
+                <div class="rooms">
+                    <button class="room red" id="open131">131教室</button>
+                    <button class="room red" id="open132">132教室</button>
+                    <button class="room blue" id="open133">133教室</button>
+                </div>
+            </div>
+
+            <button class="building-item" data-target="building2">2号館 <span class="arrow">▼</span></button>
+            <div class="building-detail" id="building2">
+
+                <p class="floor">B1F</p>
+                <div class="rooms">
+                    <button class="room red" id="open201">LEARNING THEATER 201</button>
+                    <button class="room red" id="open202">Active! Studio 202</button>
+                </div>
+
+                <p class="floor">1F</p>
+                <div class="rooms">
+                    <button class="room red" id="open211">LEARNING STUDIO 211</button>
+                </div>
+
+                <p class="floor">2F</p>
+                <div class="rooms">
+                    <button class="room red" id="open221">221教室</button>
+                    <button class="room red" id="open222">222教室</button>
+                    <button class="room blue" id="open223">223教室</button>
+                    <button class="room blue" id="open224">224教室</button>
+                    <button class="room blue" id="open225">225教室</button>
+                    <button class="room blue" id="open226">226教室</button>
+                    <button class="room blue" id="open227">227教室</button>
+                </div>
+            </div>
+
+            <button class="building-item" data-target="building3">3号館 <span class="arrow">▼</span></button>
+            <div class="building-detail" id="building3">
+
+                <p class="floor">3F</p>
+                <div class="rooms">
+                    <button class="room red" id="open331">331教室</button>
+                    <button class="room red" id="open332">332教室</button>
+                    <button class="room blue" id="open333">333教室</button>
+                    <button class="room blue" id="open334">334教室</button>
+                    <button class="room blue" id="open335">335教室</button>
+                    <button class="room blue" id="open336">336教室</button>
+                    <button class="room blue" id="open337">337教室</button>
+                    <button class="room blue" id="open338">338教室</button>
+                    <button class="room blue" id="open339">339教室</button>
+                </div>
+            </div>
+
+            <button class="building-item" data-target="building4">4号館 <span class="arrow">▼</span></button>
+            <div class="building-detail" id="building4">
+
+                <p class="floor">1F</p>
+                <div class="rooms">
+                    <button class="room red" id="open410">410教室</button>
+                </div>
+
+                <p class="floor">2F</p>
+                <div class="rooms">
+                    <button class="room red" id="open420">420教室</button>
+                    <button class="room red" id="open421">421教室</button>
+                    <button class="room blue" id="open422">422教室</button>
+                    <button class="room blue" id="open423">423教室</button>
+                    <button class="room blue" id="open424">424教室</button>
+                    <button class="room blue" id="open425">425教室</button>
+                    <button class="room blue" id="open426">426教室</button>
+                    <button class="room blue" id="open427">427教室</button>
+                    <button class="room blue" id="open428">428教室</button>
+                    <button class="room red" id="open429">429教室</button>
+                </div>
+
+                <p class="floor">4F</p>
+                <div class="rooms">
+                    <button class="room red" id="open44a">ゼミ44A</button>
+                    <button class="room red" id="open44b">ゼミ44B</button>
+                </div>
+            </div>
+
+            <button class="building-item" data-target="building5">5号館 <span class="arrow">▼</span></button>
+            <div class="building-detail" id="building5">
+
+                <p class="floor">1F</p>
+                <div class="rooms">
+                    <button class="room red" id="open511">511教室</button>
+                </div>
+
+                <p class="floor">2F</p>
+                <div class="rooms">
+                    <button class="room red" id="open521">521教室</button>
+                    <button class="room red" id="open522">522教室</button>
+                    <button class="room blue" id="open523">523教室</button>
+                    <button class="room blue" id="open524">524教室</button>
+                    <button class="room blue" id="open525">525教室</button>
+                    <button class="room blue" id="open526">526教室</button>
+                    <button class="room blue" id="open527">527教室</button>
+                    <button class="room blue" id="open528">528教室</button>
+                </div>
+
+                <p class="floor">3F</p>
+                <div class="rooms">
+                    <button class="room red" id="open51">ゼミ51</button>
+                    <button class="room red" id="open52">ゼミ52</button>
+                    <button class="room red" id="open53">ゼミ53</button>
+                    <button class="room red" id="open54">ゼミ54</button>
+                    <button class="room red" id="open55">ゼミ55</button>
+                    <button class="room red" id="open56">ゼミ56</button>
+                </div>
+            </div>
+
+            <button class="building-item" data-target="building7">7号館 <span class="arrow">▼</span></button>
+            <div class="building-detail" id="building7">
+
+                <p class="floor">B1F</p>
+                <div class="rooms">
+                    <button class="room red" id="open701">701教室</button>
+                    <button class="room blue" id="open702">702教室</button>
+                </div>
+
+                <p class="floor">1F</p>
+                <div class="rooms">
+                    <button class="room red" id="open711">711教室</button>
+                    <button class="room red" id="open712">712教室</button>
+                    <button class="room blue" id="open713">713教室</button>
+                    <button class="room blue" id="open714">714教室</button>
+                </div>
+
+                <p class="floor">2F</p>
+                <div class="rooms">
+                    <button class="room red" id="open721">721教室</button>
+                    <button class="room red" id="open722">722教室</button>
+                    <button class="room red" id="open723">723教室</button>
+                    <button class="room red" id="open724">724教室</button>
+                    <button class="room red" id="open725">725教室</button>
+                </div>
+
+                <p class="floor">3F</p>
+                <div class="rooms">
+                    <button class="room red" id="open70">ゼミ70</button>
+                    <button class="room red" id="open71">ゼミ71</button>
+                    <button class="room red" id="open72">ゼミ72</button>
+                    <button class="room red" id="open73">ゼミ73</button>
+                    <button class="room red" id="open74">ゼミ74</button>
+                    <button class="room red" id="open75">ゼミ75</button>
+                    <button class="room red" id="open76">ゼミ76</button>
+                    <button class="room red" id="open77">ゼミ77</button>
+                    <button class="room red" id="open78">ゼミ78</button>
+                    <button class="room red" id="open79">ゼミ79</button>
+                </div>
+            </div>
+
+            <button class="building-item" data-target="building8">8号館 <span class="arrow">▼</span></button>
+            <div class="building-detail" id="building8">
+
+                <p class="floor">1F</p>
+                <div class="rooms">
+                    <button class="room red" id="open811">811教室</button>
+                    <button class="room red" id="open812">812教室</button>
+                    <button class="room red" id="open813">813教室</button>
+                    <button class="room blue" id="open814">814教室</button>
+                </div>
+
+                <p class="floor">2F</p>
+                <div class="rooms">
+                    <button class="room red" id="open821">821教室</button>
+                    <button class="room red" id="open822">822教室</button>
+                    <button class="room blue" id="open823">823教室</button>
+                    <button class="room blue" id="open824">824教室</button>
+                </div>
+            </div>
+
+            <button class="building-item" data-target="building9">9号館 <span class="arrow">▼</span></button>
+            <div class="building-detail" id="building9">
+
+                <p class="floor">4F</p>
+                <div class="rooms">
+                    <button class="room blue" id="openTanmatsuA">端末室A</button>
+                    <button class="room blue" id="openTanmatsuB">端末室B</button>
+                    <button class="room red" id="openTanmatsuC">端末室C</button>
+                    <button class="room blue" id="openTanmatsuD">端末室D</button>
+                    <button class="room red" id="openTanmatsuE">端末室E</button>
+                    <button class="room blue" id="openTanmatsuF">端末室F</button>
+                </div>
+
+                <p class="floor">5F</p>
+                <div class="rooms">
+                    <button class="room red" id="open95a">ゼミ95A</button>
+                    <button class="room red" id="open95b">ゼミ95B</button>
+                    <button class="room red" id="open95c">ゼミ95C</button>
+                    <button class="room red" id="open95d">ゼミ95D</button>
+                    <button class="room red" id="open95e">ゼミ95E</button>
+                    <button class="room red" id="open95f">ゼミ95F</button>
+                    <button class="room red" id="open95g">ゼミ95G</button>
+                    <button class="room red" id="open95h">ゼミ95H</button>
+                    <button class="room red" id="open95i">ゼミ95I</button>
+                    <button class="room red" id="open95j">ゼミ95J</button>
+                </div>
+
+                <p class="floor">6F</p>
+                <div class="rooms">
+                    <button class="room red" id="open961">961教室</button>
+                    <button class="room red" id="open962">962教室</button>
+                    <button class="room red" id="open963">963教室</button>
+                    <button class="room red" id="open964">964教室</button>
+                    <button class="room red" id="open965">965教室</button>
+                    <button class="room red" id="open966">966教室</button>
+                    <button class="room red" id="open967">967教室</button>
+                    <button class="room red" id="open968">968教室</button>
+                </div>
+
+                <p class="floor">7F</p>
+                <div class="rooms">
+                    <button class="room red" id="open971">971教室</button>
+                    <button class="room red" id="open972">972教室</button>
+                    <button class="room red" id="open973">973教室</button>
+                    <button class="room red" id="open974">974教室</button>
+                    <button class="room red" id="open975">975教室</button>
+                    <button class="room red" id="open976">976教室</button>
+                    <button class="room red" id="open977">977教室</button>
+                    <button class="room red" id="open978">978教室</button>
+                    <button class="room red" id="open979">979教室</button>
+                </div>
+
+                <p class="floor">8F</p>
+                <div class="rooms">
+                    <button class="room red" id="open98a">ゼミ98A</button>
+                    <button class="room red" id="open98b">ゼミ98B</button>
+                    <button class="room red" id="open98c">ゼミ98C</button>
+                    <button class="room red" id="open98f">ゼミ98F</button>
+                </div>
+            </div>
+
+            <button class="building-item" data-target="building10">10号館 <span class="arrow">▼</span></button>
+            <div class="building-detail" id="building10">
+
+                <p class="floor">1F</p>
+                <div class="rooms">
+                    <button class="room blue" id="open101a">ゼミ101A</button>
+                    <button class="room blue" id="open101b">ゼミ101B</button>
+                    <button class="room red" id="open101c">ゼミ101C</button>
+                    <button class="room blue" id="open101d">ゼミ101D</button>
+                    <button class="room red" id="open101e">ゼミ101E</button>
+                    <button class="room blue" id="open101f">ゼミ101F</button>
+                    <button class="room red" id="open101g">ゼミ101G</button>
+                    <button class="room blue" id="open101h">ゼミ101H</button>
+                    <button class="room red" id="open10101">10101教室</button>
+                    <button class="room red" id="open10102">10102教室</button>
+                    <button class="room red" id="open10103">10103教室</button>
+                </div>
+
+                <p class="floor">2F</p>
+                <div class="rooms">
+                    <button class="room red" id="open10201">10201教室</button>
+                    <button class="room red" id="open10202">10202教室</button>
+                    <button class="room red" id="open10203">10203教室</button>
+                    <button class="room red" id="open10204">10204教室</button>
+                    <button class="room red" id="open10205">10205教室</button>
+                    <button class="room red" id="open10206">10206教室</button>
+                    <button class="room red" id="open10207">10207教室</button>
+                    <button class="room red" id="open10208">10208教室</button>
+                    <button class="room red" id="open10209">10209教室</button>
+                    <button class="room red" id="open10210">10210教室</button>
+                    <button class="room red" id="open10211">10211教室</button>
+                    <button class="room red" id="open10212">10212教室</button>
+                    <button class="room red" id="open10213">10213教室</button>
+                    <button class="room red" id="open10214">10214教室</button>
+                    <button class="room red" id="open10215">10215教室</button>
+                </div>
+
+                <p class="floor">3F</p>
+                <div class="rooms">
+                    <button class="room red" id="open10301">10301教室</button>
+                    <button class="room red" id="open10302">10302教室</button>
+                    <button class="room red" id="open10303">10303教室</button>
+                    <button class="room red" id="open10304">10304教室</button>
+                    <button class="room red" id="open10305">10305教室</button>
+                    <button class="room red" id="open10306">10306教室</button>
+                    <button class="room red" id="open10307">10307教室</button>
+                    <button class="room red" id="open10308">10308教室</button>
+                    <button class="room red" id="open10309">10309教室</button>
+                    <button class="room red" id="open10310">10310教室</button>
+                    <button class="room red" id="open10311">10311教室</button>
+                    <button class="room red" id="open10312">10312教室</button>
+                    <button class="room red" id="open10313">10313教室</button>
+                    <button class="room red" id="open10314">10314教室</button>
+                    <button class="room red" id="open10315">10315教室</button>
+                </div>
+
+                <p class="floor">5F</p>
+                <div class="rooms">
+                    <button class="room red" id="open105a">ゼミ105A</button>
+                    <button class="room red" id="open105b">ゼミ105B</button>
+                    <button class="room red" id="open105c">ゼミ105C</button>
+                    <button class="room red" id="open105d">ゼミ105D</button>
+                    <button class="room red" id="open105e">ゼミ105E</button>
+                    <button class="room red" id="open105f">ゼミ105F</button>
+                    <button class="room red" id="open105g">ゼミ105G</button>
+                    <button class="room red" id="open105h">ゼミ105H</button>
+                    <button class="room red" id="open105i">ゼミ105I</button>
+                    <button class="room red" id="open105j">ゼミ105J</button>
+                    <button class="room red" id="open105k">ゼミ105K</button>
+                    <button class="room red" id="open105l">ゼミ105L</button>
+                    <button class="room red" id="open105m">ゼミ105M</button>
+                    <button class="room red" id="open105n">ゼミ105N</button>
+                    <button class="room red" id="open105o">ゼミ105O</button>
+                    <button class="room red" id="open105p">ゼミ105P</button>
+                    <button class="room red" id="open105q">ゼミ105Q</button>
+                    <button class="room red" id="open105r">ゼミ105R</button>
+                    <button class="room red" id="open105s">ゼミ105S</button>
+                    <button class="room red" id="open105t">ゼミ105T</button>
+                    <button class="room red" id="open105u">ゼミ105U</button>
+                    <button class="room red" id="open105v">ゼミ105V</button>
+                    <button class="room red" id="open105w">ゼミ105W</button>
+                    <button class="room red" id="open105x">ゼミ105X</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- 教室詳細モーダル -->
+        <div id="detail114" class="detail-modal">
+            <div class="detail-wrapper">
+                <div class="tabs">
+                    <div id="tab114-1" class="tab-1">
+                        <button data-target="panel114-1">教室情報</button>
+                    </div>
+                    <div id="tab114-2" class="tab-2">
+                        <button data-target="panel114-2">みんなの投稿</button>
+                    </div>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-header">
+                        <button class="close-btn2" id="close114">
+                            <img src="close2.png" alt="閉じるボタン" class="logo_close2">
+                        </button>
+                        <h2>114教室</h2>
+                    </div>
+                    <div class="detail-body">
+                        <section id="panel114-1" class="tab-panel-1 tab-panel active">
+                            <div class="photo">
+                                <img src="114_kari.jpg" alt="114教室" class="room-photo">
+                            </div>
+                            <div class="detail">
+                                <p><span style="color:#9abf92;"><b>定員</b></span>：510人</p>
+                                <p><span style="color:#9abf92;"><b>設備・用途</b></span>：Wi-Fi、コンセント、プロジェクター、黒板、飲食○</p>
+                            </div>
+                            <div class="class-count-btn">
+                                <div class="class-container">
+                                    <button id="btnClass">授業あり</button>
+                                    <div class="count-item">
+                                        <img src="human.png" alt="human" class="logo_human">
+                                        <div id="countClass" class="count">0</div>
+                                    </div>
+                                </div>
+                                <div class="free-container">
+                                    <button id="btnFree">授業なし</button>
+                                    <div class="count-item">
+                                        <img src="human.png" alt="human" class="logo_human">
+                                        <div id="countFree" class="count">0</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="crowd-container">
+                                <div class="crowd-count-btn">
+                                    <button id="btnGaragara">ガラガラ<br><span
+                                            style="font-size: 0.7rem;">(10%以下)</span></button>
+                                    <div class="count-item">
+                                        <img src="human.png" alt="human" class="logo_human">
+                                        <div id="countGaragara" class="count">0</div>
+                                    </div>
+                                </div>
+                                <div class="crowd-count-btn">
+                                    <button id="btnSukuname">少なめ<br><span
+                                            style="font-size: 0.7rem;">(10%〜30%)</span></button>
+                                    <div class="count-item">
+                                        <img src="human.png" alt="human" class="logo_human">
+                                        <div id="countSukuname" class="count">0</div>
+                                    </div>
+                                </div>
+                                <div class="crowd-count-btn">
+                                    <button id="btnHutsu">普通<br><span
+                                            style="font-size: 0.65rem;">(30%〜50%)</span></button>
+                                    <div class="count-item">
+                                        <img src="human.png" alt="human" class="logo_human">
+                                        <div id="countHutsu" class="count">0</div>
+                                    </div>
+                                </div>
+                                <div class="crowd-count-btn">
+                                    <button id="btnKonzatsu">混雑<br><span
+                                            style="font-size: 0.7rem;">(50%以上)</span></button>
+                                    <div class="count-item">
+                                        <img src="human.png" alt="human" class="logo_human">
+                                        <div id="countKonzatsu" class="count">0</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <section id="panel114-2" class="tab-panel-2 tab-panel">
+                            <div class="comment-list" id="commentList114"></div>
+                            <div class="post-area">
+                                <div class="text-area">
+                                    <textarea name="comments" class="comment-area" id="comments114"
+                                        placeholder="コメントを入力…"></textarea>
+                                </div>
+                                <div class="post-btn">
+                                    <input type="image" name="post-btn" src="post.png" alt="投稿" class="post-image"
+                                        id="postBtn114">
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- フィルタモーダル -->
+        <div id="filterModal" class="filter-modal">
+            <div class="filter-content">
+                <div class="filter-header">
+                    <button class="close-btn2" id="closeFilter">
+                        <img src="close2.png" alt="閉じるボタン" class="logo_close2">
+                    </button>
+                    <h2>フィルタ</h2>
+                </div>
+                <div class="filter-body">
+                    <label for="keyword">キーワード</label>
+                    <input type="text" id="keyword" placeholder="キーワードを入力">
+                    <p>曜日</p>
+                    <div class="option-group">
+                        <button>月</button>
+                        <button>火</button>
+                        <button>水</button>
+                        <button>木</button>
+                        <button>金</button>
+                        <button>土</button>
+                    </div>
+                    <p>号館</p>
+                    <div class="option-group">
+                        <button>1</button><button>2</button><button>3</button><button>4</button><button>5</button>
+                        <button>7</button><button>8</button><button>9</button><button>10</button>
+                    </div>
+                    <p>時限</p>
+                    <div class="option-group">
+                        <button>1</button><button>2</button><button>昼休み</button><button>3</button><button>4</button><button>5</button>
+                        <button>6</button>
+                    </div>
+                    <p>設備・用途</p>
+                    <div class="option-group wide">
+                        <button>Wi-Fi</button><button>コンセント</button><button>延長コード</button>
+                        <button>ホワイトボード</button><button>黒板</button>
+                        <button>パソコン</button><button>飲食可</button><button>自習向き</button>
+                    </div>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox"> 使用中の教室を非表示</label>
+                    </div>
+                </div>
+                <div class="filter-footer">
+                    <button class="clear-btn">全てクリア</button>
+                    <button class="search-btn">検索</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 設定ページ -->
+    <div id="settingPage" class="page">
+        <!--設定メニュー-->
+        <div id="menuPage" class="sub-page active">
+            <div class="setting-header">
+                <button id="backHome">← ホームに戻る</button>
+                <h2>設定メニュー</h2>
+            </div>
+            <button class="menu-btn" data-target="themePage">テーマカラー・色盲</button>
+            <button class="menu-btn" data-target="contactPage">お問い合わせ</button>
+            <button class="menu-btn" data-target="termsPage">利用規約</button>
+            <button class="menu-btn" id="logoutBtn" >ログイン・ログアウト</button>
+            <p id="googleMsg"></p>
+        </div>
+        <!--各ページ-->
+        <div id="themePage" class="sub-page">
+            <button class="back-btn">← 戻る</button>
+            <h2>テーマカラー・色盲設定</h2>
+            <p>ここにテーマカラーや色覚補助の設定を置く。</p>
+        </div>
+        <div id="contactPage" class="sub-page">
+            <button class="back-btn">← 戻る</button>
+            <h2>お問い合わせ</h2>
+            <p>フォームや連絡先をここに置く。</p>
+        </div>
+        <div id="termsPage" class="sub-page">
+            <button class="back-btn">← 戻る</button>
+            <h2>利用規約</h2>
+            <p>ここに利用規約の文章を置く。</p>
+        </div>
+    </div>
+    <script type="module" src="Asapro2025_appNo2.js"></script>
+</body>
+
+</html>
