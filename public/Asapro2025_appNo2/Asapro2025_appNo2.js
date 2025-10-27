@@ -22,6 +22,9 @@ const firebaseConfig = {
 const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+// 現在のログイン状態を保持
+let isLoggedIn = false;
+
 // ==== 便利関数 ====
 const $ = (sel) => document.querySelector(sel);
 const showMsg = (el, text) => { if (el) el.textContent = text; };
@@ -37,19 +40,47 @@ const googleMsg = $('#googleMsg');
 const continueBtn = $('#continueBtn');          // 置いていなければ null のままでOK
 const logoutBtnOnIndex = $('#logoutBtnOnIndex');// 同上
 
+// if (googleBtn) {
+//   const provider = new GoogleAuthProvider();
+//   googleBtn.addEventListener('click', async () => {
+//     try {
+//       await signInWithPopup(auth, provider);
+//       showMsg(googleMsg, 'Googleでログインしました。');      
+//       const p = new URLSearchParams(location.search);
+//       location.replace(p.get('next') || 'home.html');
+//     } catch (err) {
+//       showMsg(googleMsg, `Googleログイン失敗: ${err.code || err.message}`);
+//     }
+//   });
+// }
+
 if (googleBtn) {
-  const provider = new GoogleAuthProvider();
-  googleBtn.addEventListener('click', async () => {
-    try {
-      await signInWithPopup(auth, provider);
-      showMsg(googleMsg, 'Googleでログインしました。');      
-      const p = new URLSearchParams(location.search);
-      location.replace(p.get('next') || 'home.html');
-    } catch (err) {
-      showMsg(googleMsg, `Googleログイン失敗: ${err.code || err.message}`);
-    }
-  });
-}
+    const provider = new GoogleAuthProvider();
+    googleBtn.addEventListener('click', async () => {
+      try {
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+  
+        const email = user.email;
+        const uid = user.uid;
+  
+        // 表示用
+        console.log('ログイン成功:', { email, uid });
+        showMsg(googleMsg, `Googleでログインしました。\nメール: ${email}\nUID: ${uid}`);
+  
+        // 保存して別ページで確認もできる
+        localStorage.setItem('userEmail', email);
+        localStorage.setItem('userUid', uid);
+  
+        const p = new URLSearchParams(location.search);
+        location.replace(p.get('next') || 'home.html');
+      } catch (err) {
+        console.error(err);
+        showMsg(googleMsg, `Googleログイン失敗: ${err.code || err.message}`);
+      }
+    });
+  }
+  
 
 if (continueBtn) {
   continueBtn.addEventListener('click', () => location.replace('home.html'));
@@ -63,10 +94,16 @@ if (logoutBtnOnIndex) {
 }
 
 // ===== home.html 用（任意でログアウトボタン対応）=====
+const emailOut = $('#userEmail');
+const uidOut   = $('#userUid');
+
 const logoutBtn = $('#logoutBtn');
 if (logoutBtn) {
   logoutBtn.addEventListener('click', async () => {
     //await signOut(auth);
+    location.replace('index.html');
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('userUid');
     location.replace('index.html');
   });
 }
@@ -74,21 +111,34 @@ if (logoutBtn) {
 // --- ここがポイント：自動遷移の条件を絞る
 onAuthStateChanged(auth, (user) => {
 
-    // --- 継続/ログアウト（index用：任意）
-    // const continueBtn = $('#continueBtn');   // 追加した場合
-    // const logoutBtnOnIndex = $('#logoutBtnOnIndex'); // 追加した場合
-    // if (continueBtn) continueBtn.addEventListener('click', ()=> location.replace('home.html'));
-    // if (logoutBtnOnIndex) logoutBtnOnIndex.addEventListener('click', async ()=> { await signOut(auth); location.reload(); });
-
-   
-    if (user && googleMsg) {
-        googleMsg.textContent = `${user.displayName || user.email} でログイン中`;
-        //if (continueBtn) continueBtn.classList.remove('hidden');
-        //if (logoutBtnOnIndex) logoutBtnOnIndex.classList.remove('hidden');
-    }else if(!user){
+    if (user) {
+        console.log(`ログイン中: ${user.email}`);
+        isLoggedIn = true;
+        if(googleMsg){
+            googleMsg.textContent = `${user.displayName || user.email} でログイン中`;
+        }
+      } else {
+        console.log("未ログイン");
         googleMsg.textContent = "ログアウト中";
+        isLoggedIn = false;
     }
-    
+   
+    //変更10/24
+    if (isHome) {
+        if (user) {
+          const email = user.email || localStorage.getItem('userEmail') || '';
+          const uid   = user.uid   || localStorage.getItem('userUid')   || '';
+          if (emailOut) emailOut.textContent = `メールアドレス: ${email}`;
+          if (uidOut)   uidOut.textContent   = `UID: ${uid}`;
+        } else {
+          // 未ログインなら index に戻す（next 付きで）
+          //location.replace('index.html?next=home.html');
+          //今回は非ログイン者でもみれるようにするので上のコードはコメントアウト
+        }
+    }
+    //変更10/24ここまで
+
+
 });
 
 
@@ -215,15 +265,47 @@ document.addEventListener("DOMContentLoaded", function () {
     const countClass = document.getElementById("countClass");
     const countFree = document.getElementById("countFree");
 
-    btnClass.addEventListener("click", () => {
+    // btnClass.addEventListener("click", () => {
+    //     if (!isLoggedIn) {
+    //       alert("ログインしていないと操作できません。");
+    //       return;
+    //     }
+    //     classCount++;
+    //     countClass.textContent = classCount;
+    //   });
+      
+    // btnFree.addEventListener("click", () => {
+    //     if (!isLoggedIn) {
+    //       alert("ログインしていないと操作できません。");
+    //       return;
+    //     }
+    //     freeCount++;
+    //     countFree.textContent = freeCount;
+    // });
+
+    //変更10/24
+    // 共通処理として関数を定義
+    function handleCount(target) {
+        if (!isLoggedIn) {
+        alert("ログインしていないと操作できません。");
+        return;
+        }
+    
+        if (target === "class") {
         classCount++;
         countClass.textContent = classCount;
-    });
-
-    btnFree.addEventListener("click", () => {
+        } else if (target === "free") {
         freeCount++;
         countFree.textContent = freeCount;
-    });
+        }
+    }
+    
+    // クリックイベントで関数を呼び出す
+    btnClass.addEventListener("click", () => handleCount("class"));
+    btnFree.addEventListener("click", () => handleCount("free"));
+
+    //変更10/24ここまで
+
 
     //空き情報カウント
     let garagaraCount = 0;
@@ -240,25 +322,35 @@ document.addEventListener("DOMContentLoaded", function () {
     const countHutsu = document.getElementById("countHutsu");
     const countKonzatsu = document.getElementById("countKonzatsu");
 
-    btnGaragara.addEventListener("click", () => {
-        garagaraCount++;
-        countGaragara.textContent = garagaraCount;
-    });
-
-    btnSukuname.addEventListener("click", () => {
-        sukunameCount++;
-        countSukuname.textContent = sukunameCount;
-    });
-
-    btnHutsu.addEventListener("click", () => {
-        hutsuCount++;
-        countHutsu.textContent = hutsuCount;
-    });
-
-    btnKonzatsu.addEventListener("click", () => {
-        konzatsuCount++;
-        countKonzatsu.textContent = konzatsuCount;
-    });
+    //変更10/24
+    function KonzatuCount(target) {
+        if (!isLoggedIn) {
+        alert("ログインしていないと操作できません。");
+        return;
+        }
+    
+        if (target === "garagara") {
+            garagaraCount++;
+            countGaragara.textContent = garagaraCount;
+        } else if (target === "sukuname") {
+            sukunameCount++;
+            countSukuname.textContent = sukunameCount;
+        }else if (target === "hutsu") {
+            hutsuCount++;
+            countHutsu.textContent = hutsuCount;
+        }else if (target === "konzatsu") {
+            konzatsuCount++;
+            countKonzatsu.textContent = konzatsuCount;
+        }
+    }
+    
+    // クリックイベントで関数を呼び出す
+    btnGaragara.addEventListener("click", () => KonzatuCount("garagara"));
+    btnSukuname.addEventListener("click", () => KonzatuCount("sukuname"));
+    btnHutsu.addEventListener("click", () => KonzatuCount("hutsu"));
+    btnKonzatsu.addEventListener("click", () => KonzatuCount("konzatsu"));
+    
+    //変更10/24ここまで
 
     // モーダルごとに呼び出す
     setupModal('detail114', 'open114', 'close114');
@@ -273,6 +365,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
         postBtn.addEventListener('click', (e) => {
             e.preventDefault();
+
+            //追加10/24
+            if (!isLoggedIn) {
+                alert("ログインしていないと操作できません。");
+                return;
+            }
+            //追加ここまで10/24
+
+
             const text = textarea.value.trim();
             if (text === "") return;
 
@@ -306,6 +407,14 @@ document.addEventListener("DOMContentLoaded", function () {
             let liked = false;
 
             likeBtn.addEventListener('click', () => {
+
+                //追加10/24
+                if (!isLoggedIn) {
+                    alert("ログインしていないと操作できません。");
+                    return;
+                }
+                //追加ここまで10/24
+        
                 liked = !liked;
                 likeBtn.textContent = liked ? '❤' : '♡';
                 likeBtn.classList.toggle('liked', liked);
