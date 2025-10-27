@@ -10,7 +10,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="Asapro2025_appNo2.css">
-    <script src="Asapro2025_appNo2.js"></script>
+    <!-- 一番下に書いてあったのでこっちに移動10/24 -->
+    <script type="module" src="Asapro2025_appNo2.js"></script>
+    <!-- ここいらない<script src="Asapro2025_appNo2.js"></script> -->
 </head>
 
 <body>
@@ -543,6 +545,9 @@
             <button class="menu-btn" data-target="termsPage">利用規約</button>
             <button class="menu-btn" id="logoutBtn" >ログイン・ログアウト</button>
             <p id="googleMsg"></p>
+            <p id="userEmail" style="margin-top:8px;"></p>
+            <p id="userUid"></p>
+
         </div>
         <!--各ページ-->
         <div id="themePage" class="sub-page">
@@ -561,7 +566,6 @@
             <p>ここに利用規約の文章を置く。</p>
         </div>
     </div>
-    <script type="module" src="Asapro2025_appNo2.js"></script>
 </body>
 
 </html>
